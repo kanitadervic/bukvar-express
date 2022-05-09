@@ -18,8 +18,8 @@ public class ReviewEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
     private Long id;
-    private Integer userId;
-    private Integer bookId;
+    private Long userId;
+    private Long bookId;
     private Integer rating;
     private String comment;
 }
