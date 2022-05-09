@@ -1,6 +1,5 @@
 package ba.unsa.etf.ri.ppis.bukvarexpress.model;
 
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class BookCategory {
-    private UUID bookId;
-    private UUID categoryId;
+    private Book book;
+    private Category category;
 }
