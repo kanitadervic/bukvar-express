@@ -23,9 +23,20 @@ public class BookService {
         return toModel(bookRepository.save(bookEntity));
     }
 
+    public Book updateBook(Book book) {
+        BookEntity bookEntity = toEntity(book);
+
+        return toModel(bookRepository.save(bookEntity));
+    }
+
+    public void deleteBookById(Long bookId) {
+        bookRepository.deleteById(bookId);
+    }
+
     private BookEntity toEntity(Book book) {
         return BookEntity
                 .builder()
+                .id(book.getId())
                 .name(book.getName())
                 .author(book.getAuthor())
                 .datePublished(Date.from(book.getDatePublished()))
@@ -36,6 +47,7 @@ public class BookService {
     private Book toModel(BookEntity book) {
         return Book
                 .builder()
+                .id(book.getId())
                 .name(book.getName())
                 .author(book.getAuthor())
                 .datePublished(book.getDatePublished().toInstant())

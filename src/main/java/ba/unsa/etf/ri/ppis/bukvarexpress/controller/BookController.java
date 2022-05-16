@@ -25,4 +25,31 @@ public class BookController {
 
         return ResponseEntity.ok(book);
     }
+
+    @PutMapping
+    public ResponseEntity<Book> updateBook(@RequestBody Book newBook) {
+        if (newBook.getId() == null) {
+            return null;
+        }
+        Book book = bookService.getBookById(newBook.getId());
+        if (book == null) {
+            return null;
+        }
+
+        Book updatedBook = bookService.updateBook(newBook);
+        return ResponseEntity.ok(updatedBook);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteBook(@RequestParam Long bookId) {
+        if (bookId == null) {
+            return null;
+        }
+        Book book = bookService.getBookById(bookId);
+        if (book == null) {
+            return null;
+        }
+        bookService.deleteBookById(bookId);
+        return ResponseEntity.ok("Successfully deleted a book!");
+    }
 }

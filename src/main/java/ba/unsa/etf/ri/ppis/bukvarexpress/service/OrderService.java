@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final BookService bookService;
-    private final UserService userService;
 
     public Order getOrderById(Long orderId) {
         return toModel(orderRepository.getById(orderId));
@@ -23,11 +21,22 @@ public class OrderService {
         return toModel(orderRepository.save(orderEntity));
     }
 
+    public Order updateOrder(Order order) {
+        OrderEntity orderEntity = toEntity(order);
+
+        return toModel(orderRepository.save(orderEntity));
+    }
+
+    public void deleteOrderById(Long orderId) {
+        orderRepository.deleteById(orderId);
+    }
+
     public OrderEntity toEntity(Order order) {
         return OrderEntity
                 .builder()
-                .bookId(order.getBook().getId())
-                .userId(order.getUser().getId())
+                .id(order.getId())
+                .bookId(order.getBookId())
+                .userId(order.getUserId())
                 .city(order.getCity())
                 .address(order.getAddress())
                 .build();
@@ -36,8 +45,9 @@ public class OrderService {
     public Order toModel(OrderEntity order) {
         return Order
                 .builder()
-                .book(bookService.getBookById(order.getBookId()))
-                .user(userService.getUserById(order.getUserId()))
+                .id(order.getId())
+                .bookId(order.getBookId())
+                .userId(order.getUserId())
                 .city(order.getCity())
                 .address(order.getAddress())
                 .build();

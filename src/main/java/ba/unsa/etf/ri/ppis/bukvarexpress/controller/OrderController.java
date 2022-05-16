@@ -25,4 +25,31 @@ public class OrderController {
 
         return ResponseEntity.ok(order);
     }
+
+    @PutMapping
+    public ResponseEntity<Order> updateOrder(@RequestBody Order newOrder) {
+        if (newOrder.getId() == null) {
+            return null;
+        }
+        Order order = orderService.getOrderById(newOrder.getId());
+        if (order == null) {
+            return null;
+        }
+
+        Order updatedOrder = orderService.updateOrder(newOrder);
+        return ResponseEntity.ok(updatedOrder);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteOrder(@RequestParam Long orderId) {
+        if (orderId == null) {
+            return null;
+        }
+        Order order = orderService.getOrderById(orderId);
+        if (order == null) {
+            return null;
+        }
+        orderService.deleteOrderById(orderId);
+        return ResponseEntity.ok("Successfully deleted a order!");
+    }
 }

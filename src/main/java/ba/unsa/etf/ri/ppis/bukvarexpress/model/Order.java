@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class Order {
-    private Book book;
-    private User user;
+    private Long id;
+    private Long bookId;
+    private Long userId;
     private String city;
     private String address;
 }
