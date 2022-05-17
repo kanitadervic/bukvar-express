@@ -6,17 +6,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/book")
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping
+    @RequestMapping(value = "", params = "bookId")
     public ResponseEntity<Book> getBook(@RequestParam Long bookId) {
         Book book = bookService.getBookById(bookId);
 
         return ResponseEntity.ok(book);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> bookList = bookService.getAllBooks();
+
+        return ResponseEntity.ok(bookList);
     }
 
     @PostMapping
