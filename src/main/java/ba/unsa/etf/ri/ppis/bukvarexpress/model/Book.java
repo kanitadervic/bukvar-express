@@ -1,6 +1,8 @@
 package ba.unsa.etf.ri.ppis.bukvarexpress.model;
 
 import java.time.Instant;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +18,5 @@ public class Book {
     private String author;
     private Instant datePublished;
     private Integer stock;
+    private List<Long> categoryIds;
 }

@@ -25,4 +25,31 @@ public class UserController {
 
         return ResponseEntity.ok(user);
     }
+
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody User newUser) {
+        if (newUser.getId() == null) {
+            return null;
+        }
+        User user = userService.getUserById(newUser.getId());
+        if (user == null) {
+            return null;
+        }
+
+        User updatedUser = userService.updateUser(newUser);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteUser(@RequestParam Long userId) {
+        if (userId == null) {
+            return null;
+        }
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return null;
+        }
+        userService.deleteUserById(userId);
+        return ResponseEntity.ok("Successfully deleted a user!");
+    }
 }

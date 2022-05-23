@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class Review {
-    private User user;
-    private Book book;
+    private Long id;
+    private Long userId;
+    private Long bookId;
     private Integer rating;
     private String comment;
 }

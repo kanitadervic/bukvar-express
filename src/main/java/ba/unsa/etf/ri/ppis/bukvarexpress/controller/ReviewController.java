@@ -25,4 +25,31 @@ public class ReviewController {
 
         return ResponseEntity.ok(review);
     }
+    
+    @PutMapping
+    public ResponseEntity<Review> updateReview(@RequestBody Review newReview) {
+        if (newReview.getId() == null) {
+            return null;
+        }
+        Review review = reviewService.getReviewById(newReview.getId());
+        if (review == null) {
+            return null;
+        }
+
+        Review updatedReview = reviewService.updateReview(newReview);
+        return ResponseEntity.ok(updatedReview);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteReview(@RequestParam Long reviewId) {
+        if (reviewId == null) {
+            return null;
+        }
+        Review review = reviewService.getReviewById(reviewId);
+        if (review == null) {
+            return null;
+        }
+        reviewService.deleteReviewById(reviewId);
+        return ResponseEntity.ok("Successfully deleted a review!");
+    }
 }

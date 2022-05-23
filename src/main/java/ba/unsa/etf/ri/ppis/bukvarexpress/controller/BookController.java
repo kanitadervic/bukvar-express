@@ -6,17 +6,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/book")
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping
+    @RequestMapping(value = "", params = "bookId")
     public ResponseEntity<Book> getBook(@RequestParam Long bookId) {
         Book book = bookService.getBookById(bookId);
 
         return ResponseEntity.ok(book);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> bookList = bookService.getAllBooks();
+
+        return ResponseEntity.ok(bookList);
     }
 
     @PostMapping
@@ -24,5 +33,32 @@ public class BookController {
         Book book = bookService.addBook(newBook);
 
         return ResponseEntity.ok(book);
+    }
+
+    @PutMapping
+    public ResponseEntity<Book> updateBook(@RequestBody Book newBook) {
+        if (newBook.getId() == null) {
+            return null;
+        }
+        Book book = bookService.getBookById(newBook.getId());
+        if (book == null) {
+            return null;
+        }
+
+        Book updatedBook = bookService.updateBook(newBook);
+        return ResponseEntity.ok(updatedBook);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteBook(@RequestParam Long bookId) {
+        if (bookId == null) {
+            return null;
+        }
+        Book book = bookService.getBookById(bookId);
+        if (book == null) {
+            return null;
+        }
+        bookService.deleteBookById(bookId);
+        return ResponseEntity.ok("Successfully deleted a book!");
     }
 }

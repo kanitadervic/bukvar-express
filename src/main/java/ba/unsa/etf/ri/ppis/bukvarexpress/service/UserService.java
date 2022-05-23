@@ -20,9 +20,20 @@ public class UserService {
         return toModel(userRepository.save(userEntity));
     }
 
+    public User updateUser(User user) {
+        UserEntity userEntity = toEntity(user);
+
+        return toModel(userRepository.save(userEntity));
+    }
+
+    public void deleteUserById(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
     private User toModel(UserEntity user) {
         return User
                 .builder()
+                .id(user.getId())
                 .name(user.getName())
                 .phone(user.getPhone())
                 .gender(user.getGender())
@@ -36,6 +47,7 @@ public class UserService {
     private UserEntity toEntity(User user) {
         return UserEntity
                 .builder()
+                .id(user.getId())
                 .name(user.getName())
                 .phone(user.getPhone())
                 .gender(user.getGender())
