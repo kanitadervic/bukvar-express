@@ -1,5 +1,6 @@
 package ba.unsa.etf.ri.ppis.bukvarexpress.entity;
 
+import ba.unsa.etf.ri.ppis.bukvarexpress.model.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +20,10 @@ public class OrderEntity {
     @Column(columnDefinition = "serial")
     private Long id;
     private Long userId;
-    private Long bookId;
     private String city;
+    private Double totalPrice;
+    private String note;
     private String address;
+    private String createdAt;
+    private OrderStatus orderStatus;
 }

@@ -1,27 +1,24 @@
 package ba.unsa.etf.ri.ppis.bukvarexpress.entity;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name="book")
+@Table(name="book_order")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BookEntity {
+public class BookOrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
     private Long id;
-    private String name;
-    private String author;
-    private Date datePublished;
-    private Integer stock;
-    private Double price;
-    private String image;
+    private Long orderId;
+    private Long bookId;
+    private Integer quantity;
 }
