@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -64,7 +66,17 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Book>> findByTitleOrAuthor (@RequestParam String inputString){
-        return ResponseEntity.ok(bookService.findByTitleOrAuthor(inputString.toLowerCase()));
+    public ResponseEntity<List<Book>> findByTitleOrAuthor (@RequestParam(required = false) Long categoryId, @RequestParam(required = false) String inputString){
+        if(isNull(inputString)) {
+            inputString = "";
+        }
+        var booksWithSimilarTitleOrAuthor = bookService.findByTitleOrAuthor(inputString.toLowerCase());
+        return ResponseEntity.ok(bookService.findBooksByCategoryId(categoryId, booksWithSimilarTitleOrAuthor));
     }
+
+//    @GetMapping("/searchByCategory")
+//    public ResponseEntity<List<Book>> findByCategory (@RequestParam(required = false) Long categoryId){
+//        System.out.println(categoryId);
+//       return ResponseEntity.ok(bookService.findBooksByCategoryId(categoryId), null);
+//    }
 }

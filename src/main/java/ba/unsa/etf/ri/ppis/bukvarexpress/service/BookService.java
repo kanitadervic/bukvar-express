@@ -9,8 +9,11 @@ import ba.unsa.etf.ri.ppis.bukvarexpress.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor
@@ -57,9 +60,24 @@ public class BookService {
     }
 
     public List<Book> findByTitleOrAuthor(String inputString1){
-        var lista = bookRepository.findByNameContaining(inputString1).stream().map(this::toModel).toList();
-        System.out.println(lista);
         return bookRepository.findByNameContaining(inputString1).stream().map(this::toModel).toList();
+    }
+
+    public List<Book> findBooksByCategoryId(Long categoryId, List<Book> bookList){
+        if(isNull(bookList)){
+            bookList = getAllBooks();
+        }
+        if(isNull(categoryId)){
+            return bookList;
+        }
+
+        var result = new ArrayList<Book>();
+        for (var book : bookList){
+            if(book.getCategoryIds().contains(categoryId)){
+                result.add(book);
+            }
+        }
+        return result;
     }
 
     private BookEntity toEntity(Book book) {
