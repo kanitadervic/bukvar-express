@@ -28,6 +28,8 @@ public class BookService {
 
     public Book addBook(Book book) {
         BookEntity bookEntity = toEntity(book);
+        bookEntity.setTotalReviews(0);
+        bookEntity.setRating(0D);
 
         Book savedBook = toModel(bookRepository.save(bookEntity));
         if (book.getCategoryIds() != null) {
@@ -54,6 +56,12 @@ public class BookService {
         bookRepository.deleteById(bookId);
     }
 
+    public List<Book> findByTitleOrAuthor(String inputString1){
+        var lista = bookRepository.findByNameContaining(inputString1).stream().map(this::toModel).toList();
+        System.out.println(lista);
+        return bookRepository.findByNameContaining(inputString1).stream().map(this::toModel).toList();
+    }
+
     private BookEntity toEntity(Book book) {
         return BookEntity
                 .builder()
@@ -62,6 +70,11 @@ public class BookService {
                 .author(book.getAuthor())
                 .datePublished(Date.from(book.getDatePublished()))
                 .stock(book.getStock())
+                .price(book.getPrice())
+                .imageUrl(book.getImageUrl())
+                .rating(book.getRating())
+                .totalReviews(book.getTotalReviews())
+                .description(book.getDescription())
                 .build();
     }
 
@@ -77,6 +90,11 @@ public class BookService {
                 .datePublished(book.getDatePublished().toInstant())
                 .stock(book.getStock())
                 .categoryIds(categoryList)
+                .imageUrl(book.getImageUrl())
+                .price(book.getPrice())
+                .rating(book.getRating())
+                .totalReviews(book.getTotalReviews())
+                .description(book.getDescription())
                 .build();
     }
 }

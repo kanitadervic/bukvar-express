@@ -22,4 +22,9 @@ public class BookEntity {
     private String author;
     private Date datePublished;
     private Integer stock;
+    private String imageUrl;
+    private Double price;
+    private Double rating;
+    private Integer totalReviews;
+    private String description;
 }

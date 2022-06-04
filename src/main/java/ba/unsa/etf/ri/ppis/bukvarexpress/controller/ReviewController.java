@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -14,6 +16,11 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping
+    public ResponseEntity<List<Review>> getAllReviews(){
+        return ResponseEntity.ok(reviewService.getAllReviews());
+    }
+
+    @RequestMapping(value = "", params = "bookId")
     public ResponseEntity<Review> getReviewById(@RequestParam Long reviewId) {
         Review review = reviewService.getReviewById(reviewId);
 
@@ -52,5 +59,10 @@ public class ReviewController {
         }
         reviewService.deleteReviewById(reviewId);
         return ResponseEntity.ok("Successfully deleted a review!");
+    }
+
+    @GetMapping("/rating")
+    public ResponseEntity<Integer> getRatingForBook(@RequestParam Long bookId){
+        return ResponseEntity.ok(reviewService.findRatingByBookId(bookId));
     }
 }

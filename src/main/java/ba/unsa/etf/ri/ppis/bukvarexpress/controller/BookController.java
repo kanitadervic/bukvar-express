@@ -62,4 +62,9 @@ public class BookController {
         bookService.deleteBookById(bookId);
         return ResponseEntity.ok("Successfully deleted a book!");
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Book>> findByTitleOrAuthor (@RequestParam String inputString){
+        return ResponseEntity.ok(bookService.findByTitleOrAuthor(inputString.toLowerCase()));
+    }
 }
