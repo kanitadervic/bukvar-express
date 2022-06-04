@@ -14,4 +14,7 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 //    public List<Book> findByNameContainingOrAuthorContaining (String inputString1, String inputString2);
     @Query("SELECT b FROM BookEntity b WHERE LOWER(b.name) LIKE %:inputString1% OR LOWER(b.author) LIKE %:inputString1%")
     public List<BookEntity> findByNameContaining(@Param("inputString1") String inputString1);
+
+    @Query("SELECT b FROM BookEntity b WHERE b.stock <= 5")
+    public List<BookEntity> findBooksWithStock5AndBelow();
 }

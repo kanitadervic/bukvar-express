@@ -115,4 +115,8 @@ public class BookService {
                 .description(book.getDescription())
                 .build();
     }
+
+    public List<Book> getLowOnStockBooks() {
+        return bookRepository.findBooksWithStock5AndBelow().stream().map(this::toModel).toList();
+    }
 }

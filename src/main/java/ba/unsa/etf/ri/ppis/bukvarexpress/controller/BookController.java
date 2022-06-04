@@ -79,4 +79,9 @@ public class BookController {
 //        System.out.println(categoryId);
 //       return ResponseEntity.ok(bookService.findBooksByCategoryId(categoryId), null);
 //    }
+
+    @GetMapping("/lowonstock")
+    public ResponseEntity<List<Book>> getLowOnStockBooks() {
+        return ResponseEntity.ok(bookService.getLowOnStockBooks());
+    }
 }
