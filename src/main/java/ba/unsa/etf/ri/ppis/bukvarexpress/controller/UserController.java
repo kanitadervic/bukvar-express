@@ -1,5 +1,6 @@
 package ba.unsa.etf.ri.ppis.bukvarexpress.controller;
 
+import ba.unsa.etf.ri.ppis.bukvarexpress.entity.UserEntity;
 import ba.unsa.etf.ri.ppis.bukvarexpress.model.User;
 import ba.unsa.etf.ri.ppis.bukvarexpress.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping("/userRole")
-    public ResponseEntity<String> getRoleForUser(@RequestParam String username, @RequestParam String password){
+    public ResponseEntity<UserEntity> getRoleForUser(@RequestParam String username, @RequestParam String password){
         return ResponseEntity.ok(userService.getRoleForUser(username, password));
     }
 }
