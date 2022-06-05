@@ -1,6 +1,7 @@
 package ba.unsa.etf.ri.ppis.bukvarexpress.controller;
 
 import ba.unsa.etf.ri.ppis.bukvarexpress.model.Book;
+import ba.unsa.etf.ri.ppis.bukvarexpress.model.Notification;
 import ba.unsa.etf.ri.ppis.bukvarexpress.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -80,8 +81,13 @@ public class BookController {
 //       return ResponseEntity.ok(bookService.findBooksByCategoryId(categoryId), null);
 //    }
 
-    @GetMapping("/lowonstock")
-    public ResponseEntity<List<Book>> getLowOnStockBooks() {
-        return ResponseEntity.ok(bookService.getLowOnStockBooks());
+//    @GetMapping("/lowonstock")
+//    public ResponseEntity<List<Book>> getLowOnStockBooks() {
+//        return ResponseEntity.ok(bookService.getLowOnStockBooks());
+//    }
+
+    @GetMapping("/notifications")
+    public ResponseEntity<List<Notification>> getNotifications() {
+        return ResponseEntity.ok(bookService.getNotifications());
     }
 }

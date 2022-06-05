@@ -4,9 +4,11 @@ import ba.unsa.etf.ri.ppis.bukvarexpress.entity.BookEntity;
 import ba.unsa.etf.ri.ppis.bukvarexpress.entity.CategoryEntity;
 import ba.unsa.etf.ri.ppis.bukvarexpress.model.Book;
 import ba.unsa.etf.ri.ppis.bukvarexpress.model.Category;
+import ba.unsa.etf.ri.ppis.bukvarexpress.model.Notification;
 import ba.unsa.etf.ri.ppis.bukvarexpress.repository.BookRepository;
 import ba.unsa.etf.ri.ppis.bukvarexpress.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -116,7 +118,24 @@ public class BookService {
                 .build();
     }
 
-    public List<Book> getLowOnStockBooks() {
-        return bookRepository.findBooksWithStock5AndBelow().stream().map(this::toModel).toList();
+    public List<Notification> getNotifications() {
+        List<Notification> notifications = new ArrayList<Notification>();
+
+        List<Book> bookList = bookRepository.findBooksWithStock5AndBelow().stream().map(this::toModel).toList();
+        for (var book : bookList) {
+            notifications.add(new Notification(book.getName() + " - " + book.getAuthor(), "Low on stock!"));
+        }
+
+        bookList = bookRepository.findBooksWithHighReviewAverage().stream().map(this::toModel).toList();
+        for (var book : bookList) {
+            notifications.add(new Notification(book.getName() + " - " + book.getAuthor(), "Review average above 4.5!"));
+        }
+
+        bookList = bookRepository.findBooksWithLowReviewAverage().stream().map(this::toModel).toList();
+        for (var book : bookList) {
+            notifications.add(new Notification(book.getName() + " - " + book.getAuthor(), "Review average below 2.0!"));
+        }
+
+        return notifications;
     }
 }

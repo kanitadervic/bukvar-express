@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -17,4 +18,10 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     @Query("SELECT b FROM BookEntity b WHERE b.stock <= 5")
     public List<BookEntity> findBooksWithStock5AndBelow();
+
+    @Query("SELECT b FROM BookEntity b WHERE b.rating >= 4.5")
+    public List<BookEntity> findBooksWithHighReviewAverage();
+
+    @Query("SELECT b FROM BookEntity b WHERE b.rating <= 2.0 AND b.rating != 0.0")
+    public List<BookEntity> findBooksWithLowReviewAverage();
 }
