@@ -89,7 +89,7 @@ public class BookService {
                 .datePublished(Date.from(book.getDatePublished()))
                 .stock(book.getStock())
                 .price(book.getPrice())
-                .imageUrl(book.getImageUrl())
+                .image(book.getImageUrl())
                 .rating(book.getRating())
                 .totalReviews(book.getTotalReviews())
                 .description(book.getDescription())

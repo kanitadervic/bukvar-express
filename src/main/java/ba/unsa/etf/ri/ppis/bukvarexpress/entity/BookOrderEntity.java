@@ -18,7 +18,6 @@ public class BookOrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
     private Long id;
-    private Long orderId;
     private Long bookId;
     private Integer quantity;
 }
