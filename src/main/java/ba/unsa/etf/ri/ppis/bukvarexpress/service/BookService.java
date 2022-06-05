@@ -3,12 +3,10 @@ package ba.unsa.etf.ri.ppis.bukvarexpress.service;
 import ba.unsa.etf.ri.ppis.bukvarexpress.entity.BookEntity;
 import ba.unsa.etf.ri.ppis.bukvarexpress.entity.CategoryEntity;
 import ba.unsa.etf.ri.ppis.bukvarexpress.model.Book;
-import ba.unsa.etf.ri.ppis.bukvarexpress.model.Category;
 import ba.unsa.etf.ri.ppis.bukvarexpress.model.Notification;
 import ba.unsa.etf.ri.ppis.bukvarexpress.repository.BookRepository;
 import ba.unsa.etf.ri.ppis.bukvarexpress.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -110,7 +108,7 @@ public class BookService {
                 .datePublished(book.getDatePublished().toInstant())
                 .stock(book.getStock())
                 .categoryIds(categoryList)
-                .imageUrl(book.getImageUrl())
+                .imageUrl(book.getImage())
                 .price(book.getPrice())
                 .rating(book.getRating())
                 .totalReviews(book.getTotalReviews())

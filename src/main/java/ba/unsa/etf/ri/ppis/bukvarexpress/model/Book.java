@@ -18,6 +18,8 @@ public class Book {
     private String author;
     private Instant datePublished;
     private Integer stock;
+    private Double price;
+    private String image;
     private List<Long> categoryIds;
     private String imageUrl;
     private Double price;
