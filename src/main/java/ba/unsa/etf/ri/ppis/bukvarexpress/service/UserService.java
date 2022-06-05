@@ -30,6 +30,10 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public String getRoleForUser (String username, String password){
+        return userRepository.findUserByUsernameAndPassword(username, password).getRole();
+    }
+
     private User toModel(UserEntity user) {
         return User
                 .builder()

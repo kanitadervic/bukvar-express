@@ -53,4 +53,9 @@ public class UserController {
         userService.deleteUserById(userId);
         return ResponseEntity.ok("Successfully deleted a user!");
     }
+
+    @GetMapping("/userRole")
+    public ResponseEntity<String> getRoleForUser(@RequestParam String username, @RequestParam String password){
+        return ResponseEntity.ok(userService.getRoleForUser(username, password));
+    }
 }
