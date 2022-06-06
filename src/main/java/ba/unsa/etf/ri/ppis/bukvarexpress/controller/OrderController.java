@@ -35,7 +35,9 @@ public class OrderController {
 
         double profit = 0;
         for (Order order : orders) {
-            profit += order.getTotalPrice();
+            if (order.getTotalPrice() != null) {
+                profit += order.getTotalPrice();
+            }
         }
 
         return ResponseEntity.ok(profit);
