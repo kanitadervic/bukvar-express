@@ -27,7 +27,7 @@ public class OrderService {
     }
 
     public List<Order> getAllOrders() {
-        return orderRepository.getAll().stream().map(this::toModel).toList();
+        return orderRepository.findAll().stream().map(this::toModel).toList();
     }
 
     public Order createOrder(Order order) {

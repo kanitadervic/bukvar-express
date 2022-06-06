@@ -1,6 +1,5 @@
 package ba.unsa.etf.ri.ppis.bukvarexpress.repository;
 
-import ba.unsa.etf.ri.ppis.bukvarexpress.entity.BookOrderEntity;
 import ba.unsa.etf.ri.ppis.bukvarexpress.entity.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,6 +17,4 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     @Modifying
     @Query(value = "DELETE FROM book_order WHERE order_id=?1", nativeQuery = true)
     void deleteBookOrder(Long orderId);
-
-    List<OrderEntity> getAll();
 }
