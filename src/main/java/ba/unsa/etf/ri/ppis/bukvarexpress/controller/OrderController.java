@@ -23,7 +23,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders(@RequestParam Long orderId) {
+    public ResponseEntity<List<Order>> getAllOrders() {
         List<Order> orders = orderService.getAllOrders();
 
         return ResponseEntity.ok(orders);
