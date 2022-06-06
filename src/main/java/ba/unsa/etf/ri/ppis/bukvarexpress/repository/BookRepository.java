@@ -19,9 +19,9 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
     @Query("SELECT b FROM BookEntity b WHERE b.stock <= 5")
     public List<BookEntity> findBooksWithStock5AndBelow();
 
-    @Query("SELECT b FROM BookEntity b WHERE b.rating >= 4.5")
+    @Query("SELECT b FROM BookEntity b WHERE b.totalReviews != 0 AND b.rating/b.totalReviews >= 4.5")
     public List<BookEntity> findBooksWithHighReviewAverage();
 
-    @Query("SELECT b FROM BookEntity b WHERE b.rating <= 2.0 AND b.rating != 0.0")
+    @Query("SELECT b FROM BookEntity b WHERE b.rating != 0.0 AND b.totalReviews != 0.0 AND b.rating/b.totalReviews <= 2.0")
     public List<BookEntity> findBooksWithLowReviewAverage();
 }
