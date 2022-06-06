@@ -1,11 +1,14 @@
 package ba.unsa.etf.ri.ppis.bukvarexpress.controller;
 
 import ba.unsa.etf.ri.ppis.bukvarexpress.entity.UserEntity;
+import ba.unsa.etf.ri.ppis.bukvarexpress.model.Book;
 import ba.unsa.etf.ri.ppis.bukvarexpress.model.User;
 import ba.unsa.etf.ri.ppis.bukvarexpress.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,7 +18,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<User> getUser(@RequestParam Long userId) {
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(userService.getUsers());
+    }
+
+    @RequestMapping(value = "", params = "userId")
+    public ResponseEntity<User> getBook(@RequestParam Long userId) {
         User user = userService.getUserById(userId);
 
         return ResponseEntity.ok(user);

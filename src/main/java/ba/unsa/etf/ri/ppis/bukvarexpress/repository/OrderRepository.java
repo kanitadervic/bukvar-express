@@ -16,7 +16,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     @Query(value = "INSERT INTO book_order(order_id, book_id, quantity) VALUES (?1, ?2, ?3)", nativeQuery = true)
     void saveBookOrder(Long orderId, Long bookId, Integer quantity);
 
-    @Query(value = "SELECT bo FROM BookOrderEntity bo, OrderEntity o WHERE o.id = bo.orderId AND bo.orderId=?1")
+    @Query(value = "SELECT bo FROM BookOrderEntity bo, OrderEntity o WHERE o.id = bo.orderId AND bo.orderId=?1", nativeQuery = true)
     List<BookOrderEntity> getBookOrdersByOrderId(Long orderId);
 
     @Query(value = "SELECT o FROM OrderEntity o WHERE o.userId=?1")

@@ -6,6 +6,8 @@ import ba.unsa.etf.ri.ppis.bukvarexpress.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -60,5 +62,9 @@ public class UserService {
                 .password(user.getPassword())
                 .role(user.getRole())
                 .build();
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll().stream().map(this::toModel).toList();
     }
 }
