@@ -3,6 +3,7 @@ package ba.unsa.etf.ri.ppis.bukvarexpress.service;
 import ba.unsa.etf.ri.ppis.bukvarexpress.entity.BookOrderEntity;
 import ba.unsa.etf.ri.ppis.bukvarexpress.entity.OrderEntity;
 import ba.unsa.etf.ri.ppis.bukvarexpress.model.Order;
+import ba.unsa.etf.ri.ppis.bukvarexpress.repository.BookOrderRepository;
 import ba.unsa.etf.ri.ppis.bukvarexpress.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final BookOrderRepository bookOrderRepository;
 
     public Order getOrderById(Long orderId) {
         return toModel(orderRepository.getById(orderId));
@@ -29,7 +31,7 @@ public class OrderService {
         OrderEntity savedOrderEntity = orderRepository.save(orderEntity);
         order.getOrderedBooks()
                 .forEach(bookOrder ->
-                        orderRepository.saveBookOrder( order.getId(), bookOrder.getBookId(), bookOrder.getQuantity())
+                        bookOrderRepository.saveBookOrder(savedOrderEntity.getId(), bookOrder.getBookId(), bookOrder.getQuantity())
                 );
         return toModel(savedOrderEntity);
     }
@@ -40,7 +42,7 @@ public class OrderService {
         OrderEntity savedOrderEntity = orderRepository.save(orderEntity);
         order.getOrderedBooks()
                 .forEach(bookOrder ->
-                        orderRepository.saveBookOrder( order.getId(), bookOrder.getBookId(), bookOrder.getQuantity())
+                        bookOrderRepository.saveBookOrder( savedOrderEntity.getId(), bookOrder.getBookId(), bookOrder.getQuantity())
                 );
         return toModel(savedOrderEntity);
     }
@@ -64,7 +66,7 @@ public class OrderService {
     }
 
     public Order toModel(OrderEntity order) {
-        List<BookOrderEntity> orderedBooks = orderRepository.getBookOrdersByOrderId(order.getId());
+        List<BookOrderEntity> orderedBooks = bookOrderRepository.getBookOrdersByOrderId(order.getId());
         return Order
                 .builder()
                 .id(order.getId())
