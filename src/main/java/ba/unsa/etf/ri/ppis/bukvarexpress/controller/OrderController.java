@@ -33,7 +33,12 @@ public class OrderController {
     public ResponseEntity<Double> getProfit() {
         List<Order> orders = orderService.getAllOrders();
 
-        return ResponseEntity.ok(orders.stream().mapToDouble(Order::getTotalPrice).sum());
+        double profit = 0;
+        for (Order order : orders) {
+            profit += order.getTotalPrice();
+        }
+
+        return ResponseEntity.ok(profit);
     }
 
     @PostMapping
