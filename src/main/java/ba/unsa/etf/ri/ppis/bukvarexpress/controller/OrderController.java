@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -13,11 +15,24 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     private final OrderService orderService;
 
-    @GetMapping
+    @RequestMapping(value = "", params = "orderId")
     public ResponseEntity<Order> getOrder(@RequestParam Long orderId) {
         Order order = orderService.getOrderById(orderId);
 
         return ResponseEntity.ok(order);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Order>> getAllOrders(@RequestParam Long orderId) {
+        List<Order> orders = orderService.getAllOrders();
+
+        return ResponseEntity.ok(orders);
+    }
+
+    public ResponseEntity<Double> getProfit() {
+        List<Order> orders = orderService.getAllOrders();
+
+        return ResponseEntity.ok(orders.stream().mapToDouble(Order::getTotalPrice).sum());
     }
 
     @PostMapping

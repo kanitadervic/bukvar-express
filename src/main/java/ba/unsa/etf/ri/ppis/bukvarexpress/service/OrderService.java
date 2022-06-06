@@ -26,6 +26,10 @@ public class OrderService {
         return orderEntities.stream().map(this::toModel).toList();
     }
 
+    public List<Order> getAllOrders() {
+        return orderRepository.getAll().stream().map(this::toModel).toList();
+    }
+
     public Order createOrder(Order order) {
         OrderEntity orderEntity = toEntity(order);
         OrderEntity savedOrderEntity = orderRepository.save(orderEntity);
