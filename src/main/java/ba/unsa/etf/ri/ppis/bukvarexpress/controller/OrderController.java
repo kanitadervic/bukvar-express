@@ -29,6 +29,7 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    @GetMapping(path = "/profit")
     public ResponseEntity<Double> getProfit() {
         List<Order> orders = orderService.getAllOrders();
 
